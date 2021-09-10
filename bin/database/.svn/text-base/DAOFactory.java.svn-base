@@ -1,0 +1,20 @@
+package database;
+
+import database.DAOFactory;
+import database.PostGresFactory;
+
+public abstract class DAOFactory
+{
+	public static final int POSTGRES = 1;
+
+	public static DAOFactory createFactory(int whichFactory)
+    {
+		switch (whichFactory)
+        {
+		    case POSTGRES:
+			return PostGresFactory.getMyInstance();
+		    default:
+			return null;
+		}
+	}
+}

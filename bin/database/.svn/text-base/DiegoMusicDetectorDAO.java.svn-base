@@ -1,0 +1,96 @@
+package database;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import beans.Radio;
+
+public class DiegoMusicDetectorDAO 
+{
+    private Connection con = null;
+    ResultSet rs = null;   
+
+    public DiegoMusicDetectorDAO()
+    {
+        con = PostGresFactory.getConnection();
+    }   
+   
+    public void CloseConnection() throws SQLException
+    {
+    	this.con.close();
+    }               
+   
+    //Carrega Rádios.
+    public Radio loadRadios(int idRadio) throws Exception
+    {        
+        Radio radio = new Radio();
+        Statement stm = con.createStatement();
+        String sql = "Select * from radio_workbench where status = 1 and id_radio ="+idRadio;
+        rs = stm.executeQuery(sql);           
+        while (rs.next()) 
+        {             
+             radio.setIdRadio(rs.getInt("id_radio"));
+             radio.setDescricao(rs.getString("descricao"));
+             radio.setStreaming(rs.getString("streaming"));
+             radio.setProtocolo(rs.getInt("protocolo"));
+             radio.setBitRate(rs.getInt("bitrate"));
+             radio.setSampleRate(rs.getInt("samplerate"));
+             radio.setStatus(rs.getInt("status"));
+             radio.setXmlPath(rs.getString("path")); 
+             radio.setChanells(rs.getInt("chanells"));
+         }       
+         rs.close();
+         stm.close(); 
+         this.CloseConnection();
+         return radio;
+     } 
+    
+    public int getBitRateFromRadio(int idRadio)throws Exception
+    {
+    	   int bitRate = 0;
+    	   Statement stm = con.createStatement();
+           String sql = "Select * from radio_workbench where status = 1 and id_radio="+idRadio;
+           rs = stm.executeQuery(sql);           
+           if (rs.next()) 
+           {
+        	    bitRate = rs.getInt("bitRate");
+           }
+ 	       return bitRate;    	
+    }
+    
+    public void startMetodoConectado(int idRadio)throws Exception
+    {
+    	 Statement stm = con.createStatement();
+         String sql = "Update radio_workbench set metodo_conectado = '1' where id_radio = "+idRadio;        
+         stm.executeUpdate(sql);
+         stm.close(); 
+    }
+    
+    public int statusRadio(int idRadio)throws Exception
+    {    	
+ 	      Statement stm = con.createStatement();
+          String sql = "Select metodo_conectado from radio_workbench where id_radio="+idRadio;
+          rs = stm.executeQuery(sql);           
+          if (rs.next()) 
+          {
+     	      return rs.getInt("metodo_conectado");
+          }
+	      return 1;    	
+    }
+    
+    public String getStreamingFromRadio(int idRadio)throws Exception
+    {
+    	   String streaming = "";
+    	   Statement stm = con.createStatement();
+           String sql = "Select * from radio_workbench where status = 1 and id_radio="+idRadio;
+           rs = stm.executeQuery(sql);           
+           if (rs.next()) 
+           {
+        	     streaming = rs.getString("streaming"); 
+           }
+    	   return streaming;
+    }
+            	
+}

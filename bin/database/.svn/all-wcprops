@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/4209/audiinfo_src/trunk/DiegoMusicDetector/src/database
+END
+PostGresFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/4209/audiinfo_src/trunk/DiegoMusicDetector/src/database/PostGresFactory.java
+END
+DiegoMusicDetectorDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/4209/audiinfo_src/trunk/DiegoMusicDetector/src/database/DiegoMusicDetectorDAO.java
+END
+DAOFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4209/audiinfo_src/trunk/DiegoMusicDetector/src/database/DAOFactory.java
+END
